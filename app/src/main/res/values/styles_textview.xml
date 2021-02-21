@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TitleH1RegularDarkBlueTextView" parent="H1BoldDarkBlue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TitleListH1RegularDarkBlueTextView" parent="H1RegularDarkBlue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dp_10</item>
+    </style>
+    <style name="SubTitleListH1RegularDarkBlueTextView" parent="H2RegularLightGrey">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dp_3</item>
+    </style>
+
+</resources>

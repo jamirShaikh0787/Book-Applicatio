@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="H1BoldDarkBlue" parent="H1Bold">
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="H1RegularDarkBlue" parent="H1Regular">
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="H2RegularLightGrey" parent="H2Regular">
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+</resources>
