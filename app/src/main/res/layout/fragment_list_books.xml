@@ -8,7 +8,7 @@
 
         <variable
             name="resource"
-            type="com.example.bookapplicatio.data.remote.Resource" />
+            type="com.example.bookapplication.data.remote.Resource" />
 
     </data>
 

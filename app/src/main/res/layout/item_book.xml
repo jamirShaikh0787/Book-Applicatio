@@ -7,7 +7,7 @@
 
         <variable
             name="book"
-            type="com.example.bookapplicatio.data.localdatabase.entity.BookEntity" />
+            type="com.example.bookapplication.data.localdatabase.entity.BookEntity" />
     </data>
 
 
