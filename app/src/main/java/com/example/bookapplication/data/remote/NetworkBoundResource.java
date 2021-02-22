@@ -2,6 +2,8 @@ package com.example.bookapplication.data.remote;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -15,6 +17,9 @@ import com.google.gson.stream.MalformedJsonException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,7 +64,8 @@ public abstract class NetworkBoundResource<T, V> {
             @Override
             public void onResponse(@NonNull Call<V> call, @NonNull Response<V> response) {
                 result.removeSource(dbSource);
-                saveResultAndReInit(response.body());
+                new TaskRunner().executeAsync(response.body(),call);
+                //saveResultAndReInit(response.body());
             }
 
             @Override
@@ -86,27 +92,6 @@ public abstract class NetworkBoundResource<T, V> {
 
     }
 
-    @SuppressLint("StaticFieldLeak")
-    @MainThread
-    private void saveResultAndReInit(V response) {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                saveCallResult(response);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                result.addSource(loadFromDb(), newData -> {
-                    if (null != newData)
-                        result.setValue(Resource.success(newData));
-                });
-            }
-        }.execute();
-    }
-
     @WorkerThread
     protected abstract void saveCallResult(V item);
 
@@ -126,4 +111,26 @@ public abstract class NetworkBoundResource<T, V> {
     public final LiveData<Resource<T>> getAsLiveData() {
         return result;
     }
+
+    public class TaskRunner {
+        private final Executor executor = Executors.newSingleThreadExecutor(); // change according to your requirements
+        private final Handler handler = new Handler(Looper.getMainLooper());
+
+
+
+        public <R> void executeAsync(V callable, Call<V> callback) {
+            executor.execute(() -> {
+                saveCallResult(callable);
+                handler.post(() -> {
+                    result.addSource(loadFromDb(), newData -> {
+                        if (null != newData)
+                            result.setValue(Resource.success(newData));
+                    });
+                });
+
+            });
+        }
+    }
+
+
 }

@@ -41,8 +41,6 @@ public class BookDetailFragment extends BaseFragment<BookDetailsViewModel, Fragm
             }
         });
 
-        viewModel.getErrorMessageRecieved().observe(this, message ->{
-            dataBinding.loadingProgress.setVisibility(View.GONE);
-        });
+        viewModel.getErrorMessageRecieved().observe(this, message -> dataBinding.loadingProgress.setVisibility(View.GONE));
     }
 }

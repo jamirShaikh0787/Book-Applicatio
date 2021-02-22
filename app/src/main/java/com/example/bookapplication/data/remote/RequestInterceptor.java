@@ -15,6 +15,7 @@ import okhttp3.Response;
  */
 public class RequestInterceptor implements Interceptor {
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request originalRequest = chain.request();

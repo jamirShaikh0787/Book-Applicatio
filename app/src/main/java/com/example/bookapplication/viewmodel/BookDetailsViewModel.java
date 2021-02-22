@@ -21,7 +21,7 @@ public class BookDetailsViewModel extends ViewModel {
 
     private String url;
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     private MutableLiveData<BookEntity> articleEntityMutableLiveData = new MutableLiveData<>();
 
@@ -66,7 +66,7 @@ public class BookDetailsViewModel extends ViewModel {
                 }
 
                 @Override
-                public void onFailure(String message) {
+                public void onFailure() {
                     // Send event to UI to show thw error
                     errorMessageRecieved.call();
                 }

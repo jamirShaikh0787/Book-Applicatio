@@ -85,7 +85,7 @@ public class BookRepository {
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> responseListener.onSuccess(bookDetails),
-                 (error -> responseListener.onFailure(error.getMessage())));
+                 (error -> responseListener.onFailure()));
 
     }
 
